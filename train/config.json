@@ -1,0 +1,8 @@
+{
+  "BATCH_SIZE":64,
+  "NUM_WORKERS":8,
+  "LEARNING_RATE":"1e-3",
+
+  "LOG_DIR":"./log/",
+  "OUTPUTS_DIR":"../outputs/"
+}
