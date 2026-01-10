@@ -102,11 +102,10 @@ def main():
                     dummy_input,                # ダミー入力
                     onnx_save_path,                  # 出力パス
                     export_params=True,         # 学習済みパラメータを含める
-                    opset_version=20,           # ONNX opset version 
+                    opset_version=21,           # ONNX opset version 
                     do_constant_folding=True,   # 定数畳み込み最適化
                     input_names=['input'],      # 入力名
                     output_names=['output'],    # 出力名
-                    dynamo=True,                # 新しいexportベースのエクスポーター
                     dynamic_axes={              # 動的な軸（バッチサイズ）
                         'input': {0: 'batch_size'},
                         'output': {0: 'batch_size'}
@@ -114,7 +113,6 @@ def main():
                 )
             except Exception as e:
                 print("Error:----- onnxでの保存に失敗しました。 -----")
-                print(f"詳細: {type(e).__name__}: {str(e)}")
             
             
                 

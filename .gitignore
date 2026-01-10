@@ -17,6 +17,6 @@ venv/
 .vscode/
 
 # ---- Python_tools/train の生成物 ----
-./train/outputs/
-./train/log/
-./train/data/
+train/outputs/
+train/log/
+train/data/
