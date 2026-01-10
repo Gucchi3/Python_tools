@@ -6,12 +6,16 @@ import torchvision.transforms as transforms
 from rich.prompt import Prompt
 from utils import tools
 from model import tiny_cnn
+from rich import print
+import pretty_errors
+pretty_errors.activate()
 
 
-#!##################################
-model = tiny_cnn
-#!##################################
 def main():
+    # モデル初期化
+    #!##################################
+    model = tiny_cnn()
+    #!##################################
     mode = Prompt.ask("MODE:1.train, 2.test", choices=["1", "2"])
     # 初期セッティング
     device, config, model = tools.init_setting(model=model)
