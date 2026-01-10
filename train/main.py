@@ -48,10 +48,9 @@ def main():
                     optimizer.step()
                     # 損失計上
                     running_loss += loss.item()
-                    # 損失表示
-                    if i % 2000 == 1999:
-                        print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}')
-                        running_loss = 0.0
+                
+                # エポックごとに損失表示
+                print(f'[Epoch {epoch + 1}] loss: {running_loss / len(train_loader):.3f}')
                         
             print("Finished Training\n")
             
@@ -72,7 +71,7 @@ def main():
                     total += labels.size(0)
                     correct += (predicted == labels).sum().item()
                     # ラベルごとの正答率計算
-                    for label, prediction in zip(labels, prediction):
+                    for label, prediction in zip(labels, predicted):
                         if label == prediction:
                             correct_pred[classes[label]] += 1
                         total_pred[classes[label]] += 1
@@ -87,13 +86,13 @@ def main():
 
             
             # pth保存
-            pth_save_path = "../outputs/model.pth"
+            pth_save_path = "./Python_tools/train/log/model.pth"
             torch.save(model.state_dict(), pth_save_path)
             print(f"pth saved at"+pth_save_path)
             
             # onnx保存
             # 出力path
-            onnx_save_path = "../outputs/model.onnx"
+            onnx_save_path = "./Python_tools/train/outputs/model.onnx"
             # ダミーinput作成
             dummy_input = torch.randn(1, config["INPUT_C"], config["INPUT_H"], config["INPUT_W"]).to(device)
             # 保存
@@ -103,10 +102,11 @@ def main():
                     dummy_input,                # ダミー入力
                     onnx_save_path,                  # 出力パス
                     export_params=True,         # 学習済みパラメータを含める
-                    opset_version=21,           # ONNX opset version 
+                    opset_version=20,           # ONNX opset version 
                     do_constant_folding=True,   # 定数畳み込み最適化
                     input_names=['input'],      # 入力名
                     output_names=['output'],    # 出力名
+                    dynamo=True,                # 新しいexportベースのエクスポーター
                     dynamic_axes={              # 動的な軸（バッチサイズ）
                         'input': {0: 'batch_size'},
                         'output': {0: 'batch_size'}

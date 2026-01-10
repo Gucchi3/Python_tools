@@ -1,14 +1,14 @@
 {
-  "EPOCHS":30,
+  "EPOCHS":5,
   "BATCH_SIZE":64,
   "NUM_WORKERS":8,
-  "LEARNING_RATE":"1e-3",
+  "LEARNING_RATE":1e-3,
 
   "INPUT_H":32,
   "INPUT_W":32,
   "INPUT_C":3,
 
 
-  "LOG_DIR":"./log/",
-  "OUTPUTS_DIR":"../outputs/"
+  "LOG_DIR":"./Python_tools/train/log/",
+  "OUTPUTS_DIR":"./Python_tools/train/outputs/"
 }
