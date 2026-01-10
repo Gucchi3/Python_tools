@@ -71,5 +71,8 @@ class tools():
         
         return train_loader, test_loader, classes
     
-    
+    @staticmethod
+    def make_loader_cifar100(config):
+        # comming soon...
+        return
     

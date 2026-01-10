@@ -25,6 +25,7 @@ def main():
             # 最適化関数
             optimizer     = optim.AdamW(model.parameters(), lr=config["LEARNING_RATE"], weight_decay=1e-4)
             # 学習ループ
+            
             # テスト
             
             return
