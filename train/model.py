@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 
-class model(nn.Module):
+class tiny_cnn(nn.Module):
     def __init__(self, *args, **kwargs):
         super().__init__()
         
@@ -37,4 +37,4 @@ class model(nn.Module):
 
 if __name__ == "__main__":
     from torchinfo import summary
-    summary(model(), input_size=(1,3,32,32))
+    summary(tiny_cnn, input_size=(1,3,32,32))
