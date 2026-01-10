@@ -18,7 +18,7 @@ class tools():
         # 乱数初期化
         random.seed(seed)
         # config.jsonの読み込み -> outputs, logフォルダを読み込み -> なければ作成
-        with open("../config.json", "r", encoding="utf-8") as f:
+        with open("config.json", "r", encoding="utf-8") as f:
             config = json.load(f)
         # フォルダパス読み込み
         log_dir     = config["LOG_DIR"]
@@ -30,7 +30,7 @@ class tools():
         return device, config, model
     
     @staticmethod
-    def load_weight(model, log_dir, device, pth_name="best.pth"):
+    def load_weight(model, log_dir, device, pth_name="model.pth"):
         # best.pthのパスを取得
         best_weight_path = os.path.join(log_dir,pth_name)
         if os.path.exists(best_weight_path):
