@@ -8,12 +8,6 @@ import os
 
 
 
-
-
-
-
-
-
 class tools():
     @staticmethod
     def init_setting(model, seed=11):
