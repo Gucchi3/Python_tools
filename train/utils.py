@@ -45,15 +45,26 @@ class tools():
     
     @staticmethod
     def make_loader_cifar10(config):
-        transforms = transforms.Compose(
-            [transforms.ToTensor(),
-             transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))]
-        )
+        transforms_train = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+            transforms.RandomRotation(degrees=(-30, 30)),
+            transforms.RandomCrop(size=(32, 32), padding=4),
+            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+            transforms.RandomAffine(degrees=(-10, 10), translate=(0.1, 0.1), scale=(0.9, 1.1)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))
+        ])
         
-        train_set    = torchvision.datasets.CIFAR10(root="./data", train=True, download=True, transform=transforms)
+        transforms_test = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))
+        ])
+        
+        train_set    = torchvision.datasets.CIFAR10(root="./data", train=True, download=True, transform=transforms_train)
         train_loader = torch.utils.data.DataLoader(train_set, batch_size=config["BATCH_SIZE"], shuffle=True, num_workers=config["NUM_WORKERS"])
         
-        test_set     = torchvision.datasets.CIFAR10(root="./data", train=False, download=True, transform=transforms)
+        test_set     = torchvision.datasets.CIFAR10(root="./data", train=False, download=True, transform=transforms_test)
         test_loader  = torch.utils.data.DataLoader(test_set, batch_size=config["BATCH_SIZE"], shuffle=False, num_workers=config["NUM_WORKERS"])
         
         classes = ('plane', 'car', 'bird', 'cat','deer', 'dog', 'frog', 'horse', 'ship', 'truck')
