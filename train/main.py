@@ -114,6 +114,7 @@ def main():
                 )
             except Exception as e:
                 print("Error:----- onnxでの保存に失敗しました。 -----")
+                print(f"詳細: {type(e).__name__}: {str(e)}")
             
             
                 
