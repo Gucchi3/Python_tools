@@ -5,7 +5,7 @@ import torchvision
 import torchvision.transforms as transforms
 from rich.prompt import Prompt
 from utils import tools
-from model import tiny_cnn
+from model import TinyCNN
 from rich import print
 import pretty_errors
 pretty_errors.activate()
@@ -14,7 +14,7 @@ pretty_errors.activate()
 def main():
     # モデル初期化
     #!##################################
-    model = tiny_cnn()
+    model = TinyCNN()
     #!##################################
     mode = Prompt.ask("MODE:1.train, 2.test", choices=["1", "2"])
     # 初期セッティング
@@ -88,9 +88,11 @@ def main():
             # pth保存
             pth_save_path = "./Python_tools/train/log/model.pth"
             torch.save(model.state_dict(), pth_save_path)
-            print(f"pth saved at"+pth_save_path)
+            print(f"pth saved at{pth_save_path}")
             
             # onnx保存
+            # モデルをeval()モードに切り替え
+            model.eval()
             # 出力path
             onnx_save_path = "./Python_tools/train/outputs/model.onnx"
             # ダミーinput作成
@@ -111,8 +113,10 @@ def main():
                         'output': {0: 'batch_size'}
                     }
                 )
+                print(f"ONNX saved at {onnx_save_path}")
             except Exception as e:
                 print("Error:----- onnxでの保存に失敗しました。 -----")
+                print(f"詳細エラー: {str(e)}")
             
             
                 

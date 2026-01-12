@@ -1,5 +1,5 @@
 {
-  "EPOCHS":100,
+  "EPOCHS":300,
   "BATCH_SIZE":64,
   "NUM_WORKERS":8,
   "LEARNING_RATE":1e-3,
