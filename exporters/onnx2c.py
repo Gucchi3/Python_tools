@@ -25,6 +25,7 @@ def onnx2c():
         weight_array = numpy_helper.to_array(tensor)
         print(f"Name: {name}")
         print(f"Shape: {weight_array.shape}")
+        print(f"Dtype:{weight_array.dtype}")
         print(f"Values (head): {weight_array.flatten()[:5]}...") # 最初の5個だけ表示
         print("-" * 20)
     
